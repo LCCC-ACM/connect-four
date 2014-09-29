@@ -5,11 +5,35 @@ import common.*;
 class Board {
 
 	private static Board singleton;
-	protected Piece[][] piece;
+	protected Piece[][] boardArray;
 
 	private Board()
 	{
-		this.piece = new Piece[GameConstants.NUM_ROWS][GameConstants.NUM_COLUMNS];
+		this.boardArray = new Piece[GameConstants.NUM_ROWS][GameConstants.NUM_COLUMNS];
+	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+		{
+			for (int j = 0; j < GameConstants.NUM_COLUMNS; j++)
+			{
+				Piece piece = this.boardArray[i][j];
+				if (piece == null)
+				{
+					sb.append(" ");
+				}
+				else
+				{
+					sb.append(piece.toString());
+				}
+			}
+			sb.append("\n");
+		}
+
+		return sb.toString();
 	}
 
 	public static Board getInstance()
@@ -23,21 +47,28 @@ class Board {
 	}
 
 	public Piece getPiece(int row, int column) {
-		return singleton.piece[row][column].copy();
+		return singleton.boardArray[row][column].copy();
 	}
 
-	protected void applyMove(Move move, Color color)
+	protected void applyMove(Move move, Color color) throws InvalidMoveException
 	{
 		int column = move.column;
 		int row = GameConstants.NUM_ROWS - 1;
-		Piece moveLocation = singleton.piece[row][column];
+		Piece moveLocation = singleton.boardArray[row][column];
 
 		while (moveLocation != null)
 		{
 			row++;
-			moveLocation = piece[row][column];
+			moveLocation = boardArray[row][column];
 		}
 
-		moveLocation = new Piece(color);
+		if (moveLocation == null)
+		{
+			moveLocation = new Piece(color);
+		}
+		else
+		{
+			throw new InvalidMoveException();
+		}
 	}
 }

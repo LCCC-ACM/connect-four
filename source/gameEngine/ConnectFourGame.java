@@ -28,14 +28,14 @@ public class ConnectFourGame {
 				System.out.println("Invalid move was attempted.");
 			}
 
-			if (connectFour())
+			if (board.connectFour())
 			{
-				return new GameResult();
+				return new GameResult(player);
 			}
 
 			if (board.isFull())
 			{
-				return new GameResult();
+				return new GameResult(null);
 			}
 
 			System.out.println(board);

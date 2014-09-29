@@ -5,6 +5,11 @@ import common.*;
 public class GameResult {
 	public Player winner;
 
+	public GameResult(Player winner)
+	{
+		this.winner = winner;
+	}
+
 	@Override
 	public String toString()
 	{

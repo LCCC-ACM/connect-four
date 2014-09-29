@@ -68,6 +68,11 @@ class Board {
 		throw new InvalidMoveException();
 	}
 
+	protected boolean connectFour()
+	{
+		return false;
+	}
+
 	protected boolean isFull()
 	{
 		for (int i = 0; i < GameConstants.NUM_ROWS; i++)

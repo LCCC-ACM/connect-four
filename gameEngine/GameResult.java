@@ -8,6 +8,11 @@ public class GameResult {
 	@Override
 	public String toString()
 	{
+		if (winner == null)
+		{
+			return "Game tied.";
+		}
+
 		return "The winner is " + winner.name + ".";
 	}
 }

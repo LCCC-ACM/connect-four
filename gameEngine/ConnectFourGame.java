@@ -33,7 +33,7 @@ public class ConnectFourGame {
 				return new GameResult();
 			}
 
-			if (boardFull())
+			if (board.isFull())
 			{
 				return new GameResult();
 			}
@@ -43,11 +43,6 @@ public class ConnectFourGame {
 	}
 
 	public boolean connectFour()
-	{
-		return false;
-	}
-
-	public boolean boardFull()
 	{
 		return false;
 	}

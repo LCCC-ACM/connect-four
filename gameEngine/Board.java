@@ -67,4 +67,20 @@ class Board {
 
 		throw new InvalidMoveException();
 	}
+
+	protected boolean isFull()
+	{
+		for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+		{
+			for (int j = 0; j < GameConstants.NUM_COLUMNS; j++)
+			{
+				if (boardArray[i][j] == null)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
 }

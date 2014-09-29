@@ -41,9 +41,4 @@ public class ConnectFourGame {
 			System.out.println(board);
 		}
 	}
-
-	public boolean connectFour()
-	{
-		return false;
-	}
 }

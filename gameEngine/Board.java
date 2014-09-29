@@ -16,7 +16,7 @@ class Board {
 	{
 		if (singleton == null)
 		{
-			return new Board();
+			singleton = new Board();
 		}
 
 		return singleton;

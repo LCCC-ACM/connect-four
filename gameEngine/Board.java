@@ -56,19 +56,15 @@ class Board {
 		int row = GameConstants.NUM_ROWS - 1;
 		Piece moveLocation = singleton.boardArray[row][column];
 
-		while (moveLocation != null)
+		for (int i = 0; i < GameConstants.NUM_ROWS; i++)
 		{
-			row++;
-			moveLocation = boardArray[row][column];
+			if (boardArray[row - i][column] == null)
+			{
+				boardArray[row - i][column] = new Piece(color);
+				return;
+			}
 		}
 
-		if (moveLocation == null)
-		{
-			moveLocation = new Piece(color);
-		}
-		else
-		{
-			throw new InvalidMoveException();
-		}
+		throw new InvalidMoveException();
 	}
 }

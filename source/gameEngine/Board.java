@@ -75,14 +75,11 @@ class Board {
 
 	protected boolean isFull()
 	{
-		for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+		for (int i = 0; i < GameConstants.NUM_COLUMNS; i++)
 		{
-			for (int j = 0; j < GameConstants.NUM_COLUMNS; j++)
+			if (boardArray[0][i] == null)
 			{
-				if (boardArray[i][j] == null)
-				{
-					return false;
-				}
+				return false;
 			}
 		}
 

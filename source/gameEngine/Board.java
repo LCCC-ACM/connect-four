@@ -70,6 +70,25 @@ class Board {
 
 	protected boolean connectFour()
 	{
+		for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+		{
+			for (int j = 0; j < GameConstants.NUM_COLUMNS; j++)
+			{
+				if (boardArray[i][j] == null)
+				{
+					continue;
+				}
+
+				if (vertical(i, j)
+					|| horizontal(i, j)
+					|| diagonalUp(i, j)
+					|| diagonalDown(i, j))
+				{
+					return true;
+				}
+			}
+		}
+
 		return false;
 	}
 
@@ -84,5 +103,39 @@ class Board {
 		}
 
 		return true;
+	}
+
+	private boolean vertical(int row, int column)
+	{
+		Color currentColor = boardArray[row][column].getColor();
+		if (row >= GameConstants.NUM_ROWS - GameConstants.SEQ_LENGTH)
+		{
+			return false;
+		}
+
+		for (int i = 1; i < GameConstants.SEQ_LENGTH; i++)
+		{
+			if (boardArray[row + i][column].getColor() != currentColor)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private boolean horizontal(int row, int column)
+	{
+		return false;
+	}
+
+	private boolean diagonalUp(int row, int column)
+	{
+		return false;
+	}
+
+	private boolean diagonalDown(int row, int column)
+	{
+		return false;
 	}
 }

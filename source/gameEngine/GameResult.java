@@ -18,6 +18,6 @@ public class GameResult {
 			return "Game tied.";
 		}
 
-		return "The winner is " + winner.name + ".";
+		return "The winner is " + winner.getName() + ".";
 	}
 }

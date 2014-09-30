@@ -115,7 +115,7 @@ public class Board {
 	private boolean vertical(int row, int column)
 	{
 		Color currentColor = boardArray[row][column].getColor();
-		if (row >= GameConstants.NUM_ROWS - GameConstants.SEQ_LENGTH)
+		if (row > GameConstants.NUM_ROWS - GameConstants.SEQ_LENGTH)
 		{
 			return false;
 		}
@@ -134,7 +134,7 @@ public class Board {
 	private boolean horizontal(int row, int column)
 	{
 		Color currentColor = boardArray[row][column].getColor();
-		if (column >= GameConstants.NUM_COLUMNS - GameConstants.SEQ_LENGTH)
+		if (column > GameConstants.NUM_COLUMNS - GameConstants.SEQ_LENGTH)
 		{
 			return false;
 		}
@@ -154,8 +154,8 @@ public class Board {
 	private boolean diagonalUp(int row, int column)
 	{
 		Color currentColor = boardArray[row][column].getColor();
-		if (column >= GameConstants.NUM_COLUMNS - GameConstants.SEQ_LENGTH
-			|| row < GameConstants.SEQ_LENGTH)
+		if (column > GameConstants.NUM_COLUMNS - GameConstants.SEQ_LENGTH
+			|| row < GameConstants.SEQ_LENGTH - 1)
 		{
 			return false;
 		}
@@ -175,8 +175,8 @@ public class Board {
 	private boolean diagonalDown(int row, int column)
 	{
 		Color currentColor = boardArray[row][column].getColor();
-		if (column >= GameConstants.NUM_COLUMNS - GameConstants.SEQ_LENGTH
-			|| row >= GameConstants.NUM_ROWS - GameConstants.SEQ_LENGTH)
+		if (column > GameConstants.NUM_COLUMNS - GameConstants.SEQ_LENGTH
+			|| row > GameConstants.NUM_ROWS - GameConstants.SEQ_LENGTH)
 		{
 			return false;
 		}

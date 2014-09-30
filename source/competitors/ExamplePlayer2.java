@@ -1,16 +1,15 @@
 package competitors;
 
 import common.*;
+import gameEngine.*;
 
 public class ExamplePlayer2 extends Player {
 	public String getName() {
 		return "Player 2";
 	}
 
-	public Move getMove() {
-		return new Move(moveList[currentMove++]);
+	public Move getMove(Board board) {
+		int column = (int)(Math.random() * GameConstants.NUM_COLUMNS);
+		return new Move(column);
 	}
-
-	private int currentMove = 0;
-	private int[] moveList = {2, 2, 3, 3, 3, 4, 4, 5, 6, 6, 6, 6};
 }

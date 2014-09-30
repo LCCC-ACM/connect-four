@@ -2,10 +2,10 @@ package gameEngine;
 
 import common.*;
 
-class Board {
+public class Board {
 
 	private static Board singleton;
-	protected Piece[][] boardArray;
+	private Piece[][] boardArray;
 
 	private Board()
 	{
@@ -36,7 +36,12 @@ class Board {
 		return sb.toString();
 	}
 
-	public static Board getInstance()
+	public static Piece getPiece(int row, int column)
+	{
+		return singleton.boardArray[row][column];
+	}
+
+	protected static Board getInstance()
 	{
 		if (singleton == null)
 		{
@@ -44,10 +49,6 @@ class Board {
 		}
 
 		return singleton;
-	}
-
-	public Piece getPiece(int row, int column) {
-		return singleton.boardArray[row][column].copy();
 	}
 
 	protected void applyMove(Move move, Color color) throws InvalidMoveException

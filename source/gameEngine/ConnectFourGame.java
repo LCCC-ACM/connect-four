@@ -12,7 +12,7 @@ public class ConnectFourGame {
 		{
 			Player player = gameManager.getNextPlayer();
 
-			Move move = player.getMove();
+			Move move = player.getMove(board);
 
 			try 
 			{

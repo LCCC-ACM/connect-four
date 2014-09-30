@@ -1,6 +1,6 @@
 package gameEngine;
 
-class Piece {
+public class Piece {
 	private Color color;
 
 	@Override
@@ -16,17 +16,17 @@ class Piece {
 		}
 	}
 
-	public Piece(Color color)
+	protected Piece(Color color)
 	{
 		this.color = color;
 	}
 
-	public Color getColor()
+	protected Color getColor()
 	{
 		return this.color;
 	}
 
-	public Piece copy()
+	protected Piece copy()
 	{
 		return new Piece(this.color);
 	}

@@ -8,7 +8,9 @@ public class ExamplePlayer2 extends Player {
 	}
 
 	public Move getMove() {
-		int column = 10;
-		return new Move(column);
+		return new Move(moveList[currentMove++]);
 	}
+
+	private int currentMove = 0;
+	private int[] moveList = {4, 4, 3, 3, 3, 2, 2, 1, 0, 0, 0, 0};
 }

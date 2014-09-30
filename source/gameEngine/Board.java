@@ -157,6 +157,22 @@ class Board {
 
 	private boolean diagonalDown(int row, int column)
 	{
-		return false;
+		Color currentColor = boardArray[row][column].getColor();
+		if (column >= GameConstants.NUM_COLUMNS - GameConstants.SEQ_LENGTH
+			|| row < GameConstants.SEQ_LENGTH)
+		{
+			return false;
+		}
+
+		for (int i = 1; i < GameConstants.SEQ_LENGTH; i++)
+		{
+			if (boardArray[row - i][column + i] == null
+				|| boardArray[row - i][column + i].getColor() != currentColor)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

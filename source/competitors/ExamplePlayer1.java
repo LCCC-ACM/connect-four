@@ -8,7 +8,6 @@ public class ExamplePlayer1 extends Player {
 	}
 
 	public Move getMove() {
-		int column = (int)(Math.random() * 5.0);
-		return new Move(column);
+		return new Move(4);
 	}
 }

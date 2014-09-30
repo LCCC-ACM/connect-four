@@ -12,7 +12,7 @@ class GameManager {
 	}
 
 	private final Player player1 = new ExamplePlayer1();
-	private final Player player2 = new ExamplePlayer2();
+	private final Player player2 = new ExamplePlayer1();
 
 	private final Piece blackPiece = new Piece(Color.BLACK);
 	private final Piece redPiece = new Piece(Color.RED);

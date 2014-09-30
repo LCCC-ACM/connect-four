@@ -36,9 +36,19 @@ public class Board {
 		return sb.toString();
 	}
 
-	public static Piece getPiece(int row, int column)
+	public Piece getPiece(int row, int column)
 	{
-		return singleton.boardArray[row][column];
+		return boardArray[row][column].copy();
+	}
+
+	public boolean canPlay(int column)
+	{
+		if (boardArray[0][column] == null)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	protected static Board getInstance()

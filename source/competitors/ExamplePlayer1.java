@@ -5,15 +5,21 @@ import gameEngine.*;
 
 public class ExamplePlayer1 extends Player {
 	public String getName() {
-		return "Player 1";
+		return "Example player";
 	}
 
 	public Move getMove(Board board) {
-		if (board.getPiece(0, 1) == null)
+		int column = getRandomColumn();
+		while (!board.canPlay(column))
 		{
-			return new Move(1);
+			column = getRandomColumn();
 		}
-		
-		return new Move(2);
+
+		return new Move(column);
+	}
+
+	private int getRandomColumn()
+	{
+		return (int)(Math.random() * GameConstants.NUM_COLUMNS);
 	}
 }

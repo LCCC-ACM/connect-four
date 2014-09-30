@@ -52,6 +52,12 @@ class Board {
 
 	protected void applyMove(Move move, Color color) throws InvalidMoveException
 	{
+		if (move.column >= GameConstants.NUM_COLUMNS
+			|| move.column < 0)
+		{
+			throw new InvalidMoveException();
+		}
+
 		int column = move.column;
 		int row = GameConstants.NUM_ROWS - 1;
 		Piece moveLocation = singleton.boardArray[row][column];
@@ -126,7 +132,22 @@ class Board {
 
 	private boolean horizontal(int row, int column)
 	{
-		return false;
+		Color currentColor = boardArray[row][column].getColor();
+		if (column >= GameConstants.NUM_COLUMNS - GameConstants.SEQ_LENGTH)
+		{
+			return false;
+		}
+
+		for (int i = 1; i < GameConstants.SEQ_LENGTH; i++)
+		{
+			if (boardArray[row][column + i] == null
+				|| boardArray[row][column + i].getColor() != currentColor)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	private boolean diagonalUp(int row, int column)

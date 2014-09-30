@@ -18,6 +18,7 @@ public class ConnectFourGame {
 			{
 				board.applyMove(move, gameManager.getPlayerColor(player));
 				System.out.println(gameManager.getPlayerColor(player) + " moves in col " + move.column);
+				System.out.println(board);
 			}
 			catch (UnknownPlayerException e)
 			{
@@ -25,7 +26,7 @@ public class ConnectFourGame {
 			}
 			catch (InvalidMoveException e)
 			{
-				System.out.println("Invalid move was attempted.");
+				System.out.println(player.getName() + " attempted an invalid move.");
 			}
 
 			if (board.connectFour())
@@ -37,8 +38,6 @@ public class ConnectFourGame {
 			{
 				return new GameResult(null);
 			}
-
-			System.out.println(board);
 		}
 	}
 }

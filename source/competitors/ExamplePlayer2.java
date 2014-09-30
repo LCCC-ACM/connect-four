@@ -8,7 +8,7 @@ public class ExamplePlayer2 extends Player {
 	}
 
 	public Move getMove() {
-		int column = 2;
+		int column = 10;
 		return new Move(column);
 	}
 }

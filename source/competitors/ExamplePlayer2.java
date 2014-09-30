@@ -12,5 +12,5 @@ public class ExamplePlayer2 extends Player {
 	}
 
 	private int currentMove = 0;
-	private int[] moveList = {4, 4, 3, 3, 3, 2, 2, 1, 0, 0, 0, 0};
+	private int[] moveList = {2, 2, 3, 3, 3, 4, 4, 5, 6, 6, 6, 6};
 }

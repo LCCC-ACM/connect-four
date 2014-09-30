@@ -8,6 +8,6 @@ public class ExamplePlayer1 extends Player {
 	}
 
 	public Move getMove() {
-		return new Move(4);
+		return new Move(2);
 	}
 }

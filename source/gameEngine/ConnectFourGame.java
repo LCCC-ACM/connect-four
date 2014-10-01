@@ -6,6 +6,7 @@ public class ConnectFourGame {
 	
 	private GameManager gameManager =  GameManager.getInstance();
 	private Board board = Board.getInstance();
+	private int numberOfMoves = 0;
 	
 	public GameResult play() {
 		while (true)
@@ -19,6 +20,7 @@ public class ConnectFourGame {
 				board.applyMove(move, gameManager.getPlayerColor(player));
 				System.out.println(gameManager.getPlayerColor(player) + " moves in col " + move.column);
 				System.out.println(board);
+				numberOfMoves++;
 			}
 			catch (UnknownPlayerException e)
 			{
@@ -31,12 +33,12 @@ public class ConnectFourGame {
 
 			if (board.connectFour())
 			{
-				return new GameResult(player);
+				return new GameResult(player, numberOfMoves);
 			}
 
 			if (board.isFull())
 			{
-				return new GameResult(null);
+				return new GameResult(null, numberOfMoves);
 			}
 		}
 	}

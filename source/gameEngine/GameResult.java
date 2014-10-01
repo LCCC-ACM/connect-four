@@ -3,11 +3,13 @@ package gameEngine;
 import common.*;
 
 public class GameResult {
-	public Player winner;
+	private Player winner;
+	private int numberOfMoves;
 
-	public GameResult(Player winner)
+	protected GameResult(Player winner, int numberOfMoves)
 	{
 		this.winner = winner;
+		this.numberOfMoves = numberOfMoves;
 	}
 
 	@Override
@@ -18,6 +20,7 @@ public class GameResult {
 			return "Game tied.";
 		}
 
-		return "The winner is " + winner.getName() + ".";
+		return "In this epic game lasting " + numberOfMoves + " moves,\n"
+				+ "the winner was " + winner.getName() + ".\n";
 	}
 }

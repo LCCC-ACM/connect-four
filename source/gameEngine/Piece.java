@@ -1,5 +1,7 @@
 package gameEngine;
 
+import common.*;
+
 public class Piece {
 	private Color color;
 

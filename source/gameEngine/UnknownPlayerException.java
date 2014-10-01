@@ -1,5 +1,5 @@
 package gameEngine;
 
-class UnknownPlayerException extends Exception {
+public class UnknownPlayerException extends Exception {
 	
 }

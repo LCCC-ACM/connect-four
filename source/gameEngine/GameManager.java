@@ -3,7 +3,7 @@ package gameEngine;
 import competitors.*;
 import common.*;
 
-class GameManager {
+public class GameManager {
 	private static GameManager singleton;
 
 	private GameManager()

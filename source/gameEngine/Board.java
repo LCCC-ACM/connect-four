@@ -6,10 +6,12 @@ public class Board {
 
 	private static Board singleton;
 	private Piece[][] boardArray;
+	private int[] numPieces;
 
 	private Board()
 	{
 		this.boardArray = new Piece[GameConstants.NUM_ROWS][GameConstants.NUM_COLUMNS];
+		this.numPieces = new int[GameConstants.NUM_COLUMNS];
 	}
 
 	@Override
@@ -51,6 +53,11 @@ public class Board {
 		return false;
 	}
 
+	public int getPiecesInColumn(int column)
+	{
+		return numPieces[column];
+	}
+
 	protected static Board getInstance()
 	{
 		if (singleton == null)
@@ -70,14 +77,17 @@ public class Board {
 		}
 
 		int column = move.column;
+
+		//--Start in the bottom-most row
 		int row = GameConstants.NUM_ROWS - 1;
-		Piece moveLocation = singleton.boardArray[row][column];
+		Piece moveLocation = boardArray[row][column];
 
 		for (int i = 0; i < GameConstants.NUM_ROWS; i++)
 		{
 			if (boardArray[row - i][column] == null)
 			{
 				boardArray[row - i][column] = new Piece(color);
+				numPieces[column]++;
 				return;
 			}
 		}

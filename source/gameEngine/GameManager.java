@@ -29,13 +29,6 @@ class GameManager {
 		return singleton;
 	}
 
-	public Player getNextPlayer()
-	{
-		Player toReturn = nextPlayer;
-		nextPlayer = getOtherPlayer(nextPlayer);
-		return toReturn;
-	}
-
 	public Color getPlayerColor(Player player) throws UnknownPlayerException
 	{
 		if (player == player1)
@@ -51,18 +44,11 @@ class GameManager {
 		throw new UnknownPlayerException();
 	}
 
-	public Piece getPiece(Player player) throws UnknownPlayerException
+	protected Player getNextPlayer()
 	{
-		if (player == player1)
-		{
-			return blackPiece;
-		}
-		else if (player == player2)
-		{
-			return redPiece;
-		}
-
-		throw new UnknownPlayerException();
+		Player toReturn = nextPlayer;
+		nextPlayer = getOtherPlayer(nextPlayer);
+		return toReturn;
 	}
 
 	private Player getOtherPlayer(Player player)

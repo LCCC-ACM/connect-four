@@ -20,6 +20,7 @@ public class Board {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < GameConstants.NUM_ROWS; i++)
 		{
+            sb.append("|");
 			for (int j = 0; j < GameConstants.NUM_COLUMNS; j++)
 			{
 				Piece piece = this.boardArray[i][j];

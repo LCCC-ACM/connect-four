@@ -8,7 +8,6 @@ public class ConnectFourGame {
 	
 	private GameManager gameManager =  GameManager.getInstance();
 	private Board board = Board.getInstance();
-	private LinkedList<Move> moveList = new LinkedList<Move>();
 	
 	public GameResult play() {
 		while (true)
@@ -32,12 +31,12 @@ public class ConnectFourGame {
 
 			if (board.connectFour())
 			{
-				return new GameResult(player, moveList);
+				return new GameResult(player, gameManager.getMoveList());
 			}
 
 			if (board.isFull())
 			{
-				return new GameResult(null, moveList);
+				return new GameResult(null, gameManager.getMoveList());
 			}
 		}
 	}

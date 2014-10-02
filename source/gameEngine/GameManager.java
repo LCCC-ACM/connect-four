@@ -1,5 +1,6 @@
 package gameEngine;
 
+import java.util.*;
 import competitors.*;
 import common.*;
 
@@ -13,13 +14,14 @@ public class GameManager {
 
 	private final Player player1 = new ExamplePlayer1();
 	private final Player player2 = new ExamplePlayer1();
+	
+	private Player nextPlayer = player1; //--Player 1 goes first
 
 	private final Piece blackPiece = new Piece(Color.BLACK);
 	private final Piece redPiece = new Piece(Color.RED);
 	
 	private Board board = Board.getInstance();
-
-	private Player nextPlayer = player1;
+	private LinkedList<Move> moveList = new LinkedList<Move>();
 
 	public static GameManager getInstance()
 	{
@@ -51,9 +53,7 @@ public class GameManager {
 		move.setPlayerColor(getPlayerColor(player));
 		board.applyMove(move);
 		printMoveToConsole(move);
-
-//		move.setPlayerNumber(gameManager.getPlayerNumber(player));
-//		moveList.add(move);
+		moveList.add(move);
 	}
 
 	protected Player getNextPlayer()
@@ -61,6 +61,11 @@ public class GameManager {
 		Player toReturn = nextPlayer;
 		nextPlayer = getOtherPlayer(nextPlayer);
 		return toReturn;
+	}
+	
+	protected Queue<Move> getMoveList()
+	{
+		return moveList;
 	}
 
 	private Player getOtherPlayer(Player player)

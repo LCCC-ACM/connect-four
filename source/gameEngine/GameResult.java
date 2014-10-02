@@ -1,15 +1,16 @@
 package gameEngine;
 
+import java.util.*;
 import common.*;
 
 public class GameResult {
 	private Player winner;
-	private int numberOfMoves;
+	private Queue<Move> moveList;
 
-	protected GameResult(Player winner, int numberOfMoves)
+	protected GameResult(Player winner, Queue<Move> moveList)
 	{
 		this.winner = winner;
-		this.numberOfMoves = numberOfMoves;
+		this.moveList = moveList;
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class GameResult {
 			return "Game tied.";
 		}
 
-		return "In this epic game lasting " + numberOfMoves + " moves,\n"
+		return "In this epic game lasting " + moveList.size() + " moves,\n"
 				+ "the winner was " + winner.getName() + ".\n";
 	}
 }

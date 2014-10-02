@@ -68,7 +68,7 @@ public class Board {
 		return singleton;
 	}
 
-	protected void applyMove(Move move, Color color) throws InvalidMoveException
+	protected void applyMove(Move move) throws InvalidMoveException
 	{
 		if (move.column >= GameConstants.NUM_COLUMNS
 			|| move.column < 0)
@@ -86,7 +86,7 @@ public class Board {
 		{
 			if (boardArray[row - i][column] == null)
 			{
-				boardArray[row - i][column] = new Piece(color);
+				boardArray[row - i][column] = new Piece(move.getPlayerColor());
 				numPieces[column]++;
 				return;
 			}

@@ -1,12 +1,14 @@
 package gameEngine;
 
+import java.util.*;
+
 import common.*;
 
 public class ConnectFourGame {
 	
 	private GameManager gameManager =  GameManager.getInstance();
 	private Board board = Board.getInstance();
-	private int numberOfMoves = 0;
+	private LinkedList<Move> moveList = new LinkedList<Move>();
 	
 	public GameResult play() {
 		while (true)
@@ -17,10 +19,7 @@ public class ConnectFourGame {
 
 			try 
 			{
-				board.applyMove(move, gameManager.getPlayerColor(player));
-				System.out.println(gameManager.getPlayerColor(player) + " moves in col " + move.column);
-				System.out.println(board);
-				numberOfMoves++;
+				gameManager.applyMove(move, player);
 			}
 			catch (UnknownPlayerException e)
 			{
@@ -33,12 +32,12 @@ public class ConnectFourGame {
 
 			if (board.connectFour())
 			{
-				return new GameResult(player, numberOfMoves);
+				return new GameResult(player, moveList);
 			}
 
 			if (board.isFull())
 			{
-				return new GameResult(null, numberOfMoves);
+				return new GameResult(null, moveList);
 			}
 		}
 	}

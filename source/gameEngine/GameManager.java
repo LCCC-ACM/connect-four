@@ -16,6 +16,8 @@ public class GameManager {
 
 	private final Piece blackPiece = new Piece(Color.BLACK);
 	private final Piece redPiece = new Piece(Color.RED);
+	
+	private Board board = Board.getInstance();
 
 	private Player nextPlayer = player1;
 
@@ -43,6 +45,16 @@ public class GameManager {
 
 		throw new UnknownPlayerException();
 	}
+	
+	protected void applyMove(Move move, Player player) throws UnknownPlayerException, InvalidMoveException
+	{
+		move.setPlayerColor(getPlayerColor(player));
+		board.applyMove(move);
+		printMoveToConsole(move);
+
+//		move.setPlayerNumber(gameManager.getPlayerNumber(player));
+//		moveList.add(move);
+	}
 
 	protected Player getNextPlayer()
 	{
@@ -59,5 +71,11 @@ public class GameManager {
 		}
 
 		return player1;
+	}
+
+	private void printMoveToConsole(Move move)
+			throws UnknownPlayerException {
+		System.out.println(move.getPlayerColor() + " moves in col " + move.column);
+		System.out.println(board);
 	}
 }

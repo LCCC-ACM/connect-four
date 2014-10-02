@@ -25,11 +25,11 @@ public class Board {
 				Piece piece = this.boardArray[i][j];
 				if (piece == null)
 				{
-					sb.append(" ");
+					sb.append(" |");
 				}
 				else
 				{
-					sb.append(piece.toString());
+					sb.append(piece.toString()).append("|");
 				}
 			}
 			sb.append("\n");

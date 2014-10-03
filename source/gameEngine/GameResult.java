@@ -5,7 +5,7 @@ import common.*;
 
 public class GameResult {
 	private Player winner;
-	private Queue<Move> moveList;
+	public Queue<Move> moveList;
 
 	protected GameResult(Player winner, Queue<Move> moveList)
 	{

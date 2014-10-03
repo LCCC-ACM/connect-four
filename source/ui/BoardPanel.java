@@ -1,49 +1,34 @@
 package ui;
 
 import java.awt.*;
+import java.awt.Color;
+
 import common.*;
 
 import javax.swing.JPanel;
 
 public class BoardPanel extends JPanel {
-	
-	private final int gridHeight = (UIConstants.FRAME_HEIGHT - 30) / GameConstants.NUM_ROWS;
-	private final int gridWidth = UIConstants.FRAME_WIDTH / GameConstants.NUM_COLUMNS;
-	private final int pieceSize = Math.min(gridHeight, gridWidth);
-	
-	private common.Color[][] board;
-	
-	protected void setBoard(common.Color[][] board)
-	{
-		this.board = board;
-	}
-	
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
 
-        if (board == null)
+    private UIPiece[][] piece = new UIPiece[GameConstants.NUM_ROWS][GameConstants.NUM_COLUMNS];
+    private LayoutManager layout = new GridLayout(GameConstants.NUM_ROWS, GameConstants.NUM_COLUMNS);
+
+    public BoardPanel()
+    {
+        this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        this.setLayout(layout);
+        for (int i = 0; i < GameConstants.NUM_ROWS; i++)
         {
-            return;
+            for (int j = 0; j < GameConstants.NUM_COLUMNS; j++)
+            {
+                piece[i][j] = new UIPiece();
+                this.add(piece[i][j]);
+            }
         }
+    }
 
-		for (int i = 0; i < GameConstants.NUM_COLUMNS; i++) {
-			for (int j = 0; j < GameConstants.NUM_ROWS; j++) {
-				if (board[j][i] == common.Color.RED) {
-					g.setColor(java.awt.Color.RED);
-					g.fillOval(i * gridWidth,
-							j * gridHeight,
-							pieceSize,
-							pieceSize); 
-				}
-				else if (board[j][i] == common.Color.BLACK) {
-					g.setColor(java.awt.Color.BLACK);
-					g.fillOval(i * gridWidth,
-							j * gridHeight,
-							pieceSize,
-							pieceSize);
-				}
-			}
-		}
-	}
+    protected void updatePiece(int row, int column, common.Color color)
+    {
+        java.awt.Color pieceColor = color == common.Color.RED ? java.awt.Color.RED : java.awt.Color.BLACK;
+        piece[row][column].setColor(pieceColor);
+    }
 }

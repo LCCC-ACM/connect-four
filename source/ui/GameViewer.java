@@ -16,7 +16,6 @@ public class GameViewer extends JFrame {
 	
 	private GameResult gameResult;
 	private BoardPanel boardPanel = new BoardPanel();
-    private common.Color[][] board = new common.Color[GameConstants.NUM_ROWS][GameConstants.NUM_COLUMNS];
     private int[] count = new int[GameConstants.NUM_COLUMNS];
 	
 	public GameViewer(GameResult result)
@@ -32,9 +31,7 @@ public class GameViewer extends JFrame {
 	
 	public void viewGame() {
 		while (!gameResult.moveList.isEmpty()) {
-			addMoveToBoard(gameResult.moveList.remove());
-            boardPanel.setBoard(board);
-            boardPanel.repaint();
+            addMoveToBoard(gameResult.moveList.remove());
 
             try {
                 Thread.sleep(500);
@@ -44,11 +41,12 @@ public class GameViewer extends JFrame {
 
             }
 		}
-	}
+    }
 
     private void addMoveToBoard(Move move) {
         int row = GameConstants.NUM_ROWS - count[move.column] - 1;
-        board[row][move.column] = move.getPlayerColor();
+        int column = move.column;
+        boardPanel.updatePiece(row, column, move.getPlayerColor());
         count[move.column]++;
     }
 }

@@ -41,6 +41,11 @@ public class Board {
 
 	public Piece getPiece(int row, int column)
 	{
+        if (boardArray[row][column] == null)
+        {
+            return null;
+        }
+        
 		return boardArray[row][column].copy();
 	}
 

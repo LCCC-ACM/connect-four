@@ -19,14 +19,21 @@ public class Piece {
 		}
 	}
 
+    public ConnectFourColor getColor()
+    {
+        if (this.color == ConnectFourColor.RED)
+        {
+            return ConnectFourColor.RED;
+        }
+        else
+        {
+            return ConnectFourColor.BLACK;
+        }
+    }
+
 	protected Piece(ConnectFourColor color)
 	{
 		this.color = color;
-	}
-
-	protected ConnectFourColor getColor()
-	{
-		return this.color;
 	}
 
 	protected Piece copy()

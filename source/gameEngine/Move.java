@@ -1,29 +1,29 @@
 package gameEngine;
 
-import common.Color;
+import common.ConnectFourColor;
 
 @SuppressWarnings("serial")
 public class Move {
 	public int column;
-	private Color playerColor;
+	private ConnectFourColor playerColor;
 
 	public Move(int column)
 	{
 		this.column = column;
 	}
 	
-	protected void setPlayerColor(Color playerColor)
+	protected void setPlayerColor(ConnectFourColor playerColor)
 	{
 		this.playerColor = playerColor;
 	}
 	
-	public Color getPlayerColor()
+	public ConnectFourColor getPlayerColor()
 	{
-		if (playerColor == Color.RED)
+		if (playerColor == ConnectFourColor.RED)
 		{
-			return Color.RED;
+			return ConnectFourColor.RED;
 		}
 		
-		return Color.BLACK;
+		return ConnectFourColor.BLACK;
 	}
 }

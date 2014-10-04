@@ -5,7 +5,7 @@ import gameEngine.*;
 
 public class ExamplePlayer1 extends Player {
 
-	private Color myColor;
+	private ConnectFourColor myColor;
 
 	public String getName() {
 		return "Example player";
@@ -29,7 +29,7 @@ public class ExamplePlayer1 extends Player {
 		return (int)(Math.random() * GameConstants.NUM_COLUMNS);
 	}
 
-	private Color getMyColor() {
+	private ConnectFourColor getMyColor() {
 		try {
 			return GameManager.getInstance().getPlayerColor(this);
 		}

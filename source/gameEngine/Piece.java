@@ -4,12 +4,12 @@ import common.*;
 
 @SuppressWarnings("serial")
 public class Piece {
-	private Color color;
+	private ConnectFourColor color;
 
 	@Override
 	public String toString()
 	{
-		if (this.color == Color.RED)
+		if (this.color == ConnectFourColor.RED)
 		{
 			return "R";
 		}
@@ -19,12 +19,12 @@ public class Piece {
 		}
 	}
 
-	protected Piece(Color color)
+	protected Piece(ConnectFourColor color)
 	{
 		this.color = color;
 	}
 
-	protected Color getColor()
+	protected ConnectFourColor getColor()
 	{
 		return this.color;
 	}

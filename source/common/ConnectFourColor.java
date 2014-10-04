@@ -1,6 +1,6 @@
 package common;
 
 @SuppressWarnings("serial")
-public enum Color {
+public enum ConnectFourColor {
 	BLACK, RED
 }

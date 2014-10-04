@@ -7,6 +7,7 @@ import common.*;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class BoardPanel extends JPanel {
 
     private UIPiece[][] piece = new UIPiece[GameConstants.NUM_ROWS][GameConstants.NUM_COLUMNS];

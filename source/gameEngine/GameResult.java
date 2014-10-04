@@ -3,6 +3,7 @@ package gameEngine;
 import java.util.*;
 import common.*;
 
+@SuppressWarnings("serial")
 public class GameResult {
 	private Player winner;
 	public Queue<Move> moveList;

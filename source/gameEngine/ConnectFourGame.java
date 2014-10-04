@@ -4,6 +4,7 @@ import java.util.*;
 
 import common.*;
 
+@SuppressWarnings("serial")
 public class ConnectFourGame {
 	
 	private GameManager gameManager =  GameManager.getInstance();

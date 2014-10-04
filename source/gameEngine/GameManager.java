@@ -4,6 +4,7 @@ import java.util.*;
 import competitors.*;
 import common.*;
 
+@SuppressWarnings("serial")
 public class GameManager {
 	private static GameManager singleton;
 

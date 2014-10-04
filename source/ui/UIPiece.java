@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 class UIPiece extends JPanel {
 
     private java.awt.Color color;

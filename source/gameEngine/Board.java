@@ -2,6 +2,7 @@ package gameEngine;
 
 import common.*;
 
+@SuppressWarnings("serial")
 public class Board {
 
 	private static Board singleton;
@@ -45,7 +46,7 @@ public class Board {
         {
             return null;
         }
-        
+
 		return boardArray[row][column].copy();
 	}
 

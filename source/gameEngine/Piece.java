@@ -2,6 +2,7 @@ package gameEngine;
 
 import common.*;
 
+@SuppressWarnings("serial")
 public class Piece {
 	private Color color;
 

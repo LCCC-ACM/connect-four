@@ -2,6 +2,7 @@ package gameEngine;
 
 import common.Color;
 
+@SuppressWarnings("serial")
 public class Move {
 	public int column;
 	private Color playerColor;

@@ -6,7 +6,24 @@ import common.*;
 @SuppressWarnings("serial")
 public class GameResult {
 	private Player winner;
-	public LinkedList<Move> moveList;
+	private LinkedList<Move> moveList;
+    private int currentMove = 0;
+
+    public Move getFirstMove()
+    {
+        currentMove = 0;
+        return moveList.getFirst();
+    }
+
+    public Move getNextMove()
+    {
+        return moveList.get(++currentMove);
+    }
+
+    public boolean hasMoveMoves()
+    {
+        return currentMove < moveList.size() - 1;
+    }
 
 	protected GameResult(Player winner, LinkedList<Move> moveList)
 	{

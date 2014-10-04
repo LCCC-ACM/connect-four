@@ -31,17 +31,22 @@ public class GameViewer extends JFrame {
 	}
 	
 	public void viewGame() {
-		while (!gameResult.moveList.isEmpty()) {
-            addMoveToBoard(gameResult.moveList.remove());
+
+        Move current = gameResult.getFirstMove();
+        addMoveToBoard(current);
+
+        while (gameResult.hasMoveMoves())
+        {
+            addMoveToBoard(gameResult.getNextMove());
 
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
             }
             catch(Exception e)
             {
 
             }
-		}
+        }
     }
 
     private void addMoveToBoard(Move move) {

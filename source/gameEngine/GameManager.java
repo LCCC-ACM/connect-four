@@ -64,7 +64,7 @@ public class GameManager {
 		return toReturn;
 	}
 	
-	protected Queue<Move> getMoveList()
+	protected LinkedList<Move> getMoveList()
 	{
 		return moveList;
 	}

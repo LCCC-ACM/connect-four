@@ -6,9 +6,9 @@ import common.*;
 @SuppressWarnings("serial")
 public class GameResult {
 	private Player winner;
-	public Queue<Move> moveList;
+	public LinkedList<Move> moveList;
 
-	protected GameResult(Player winner, Queue<Move> moveList)
+	protected GameResult(Player winner, LinkedList<Move> moveList)
 	{
 		this.winner = winner;
 		this.moveList = moveList;

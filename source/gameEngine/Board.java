@@ -40,14 +40,19 @@ public class Board {
 		return sb.toString();
 	}
 
-	public Piece getPiece(int row, int column)
+	public Color getPieceColor(int row, int column)
 	{
         if (boardArray[row][column] == null)
         {
             return null;
         }
 
-		return boardArray[row][column].copy();
+        if (boardArray[row][column].getColor() == Color.RED)
+        {
+            return Color.RED;
+        }
+
+        return Color.BLACK;
 	}
 
 	public boolean canPlay(int column)
@@ -75,7 +80,7 @@ public class Board {
 		return singleton;
 	}
 
-	protected void applyMove(Move move) throws InvalidMoveException
+	protected void applyMove(int turnNumber, Move move) throws InvalidMoveException
 	{
 		if (move.column >= GameConstants.NUM_COLUMNS
 			|| move.column < 0)
@@ -93,7 +98,7 @@ public class Board {
 		{
 			if (boardArray[row - i][column] == null)
 			{
-				boardArray[row - i][column] = new Piece(move.getPlayerColor());
+				boardArray[row - i][column] = new Piece(row - i, column, move.getPlayerColor(), turnNumber);
 				numPieces[column]++;
 				return;
 			}

@@ -17,9 +17,6 @@ public class GameManager {
 	private final Player player2 = new ExamplePlayer1();
 	
 	private Player nextPlayer = player1; //--Player 1 goes first
-
-	private final Piece blackPiece = new Piece(Color.BLACK);
-	private final Piece redPiece = new Piece(Color.RED);
 	
 	private Board board = Board.getInstance();
 	private LinkedList<Move> moveList = new LinkedList<Move>();
@@ -49,10 +46,10 @@ public class GameManager {
 		throw new UnknownPlayerException();
 	}
 	
-	protected void applyMove(Move move, Player player) throws UnknownPlayerException, InvalidMoveException
+	protected void applyMove(Move move, Player player, int turnNumber) throws UnknownPlayerException, InvalidMoveException
 	{
 		move.setPlayerColor(getPlayerColor(player));
-		board.applyMove(move);
+		board.applyMove(turnNumber, move);
 		printMoveToConsole(move);
 		moveList.add(move);
 	}

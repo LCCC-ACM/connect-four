@@ -9,6 +9,7 @@ public class ConnectFourGame {
 	
 	private GameManager gameManager =  GameManager.getInstance();
 	private Board board = Board.getInstance();
+    private int turnNumber = 1;
 	
 	public GameResult play() {
 		while (true)
@@ -19,7 +20,8 @@ public class ConnectFourGame {
 
 			try 
 			{
-				gameManager.applyMove(move, player);
+				gameManager.applyMove(move, player, turnNumber);
+                turnNumber += 1;
 			}
 			catch (UnknownPlayerException e)
 			{

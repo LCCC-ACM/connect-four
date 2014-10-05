@@ -4,7 +4,20 @@ import common.*;
 
 @SuppressWarnings("serial")
 public class Piece {
-	private Color color;
+    private int row;
+    private int column;
+    private Color color;
+
+    private int movePlayed;
+    protected boolean inWinningSet;
+
+    protected Piece(int row, int column, Color color, int movePlayed)
+    {
+        this.row = row;
+        this.column = column;
+        this.color = color;
+        this.color = color;
+    }
 
 	@Override
 	public String toString()
@@ -30,14 +43,4 @@ public class Piece {
             return Color.BLACK;
         }
     }
-
-	protected Piece(Color color)
-	{
-		this.color = color;
-	}
-
-	protected Piece copy()
-	{
-		return new Piece(this.color);
-	}
 }

@@ -1,6 +1,8 @@
 connect-four
 ============
 
+Note: This code is currently under development. We would like to have a more interactive UI. Also, I would like to implement dynamic class loading so people could set bots to play each other without modifiying the source code.
+
 Cloning this project
 -------------------
 type `git clone https://www.github.com/lccc-acm/connect-four`
@@ -19,7 +21,7 @@ Using Eclipse
 Building a Player
 -----------------
 Create a new class in the competitors folder - make sure it is in the competitors package
-Your class must extend the abstract Player class.
+Your class must implement the player interface.
 To have your player join the game, see lines 15-16 of the `GameManager` class.
 The game manager is reposible for newing up the players that will play against each other.
 

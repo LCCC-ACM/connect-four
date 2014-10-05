@@ -34,12 +34,12 @@ public class ConnectFourGame {
 
 			if (board.connectFour())
 			{
-				return new GameResult(player, gameManager.getMoveList());
+				return new GameResult(player, gameManager.getMoveList(), board.getBoard());
 			}
 
 			if (board.isFull())
 			{
-				return new GameResult(null, gameManager.getMoveList());
+				return new GameResult(null, gameManager.getMoveList(), board.getBoard());
 			}
 		}
 	}

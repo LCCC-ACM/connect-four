@@ -80,6 +80,11 @@ public class Board {
 		return singleton;
 	}
 
+    protected Piece[][] getBoard()
+    {
+        return this.boardArray;
+    }
+
 	protected void applyMove(int turnNumber, Move move) throws InvalidMoveException
 	{
 		if (move.column >= GameConstants.NUM_COLUMNS
@@ -160,6 +165,11 @@ public class Board {
 			}
 		}
 
+        //--mark winning set
+        for (int i = 0; i < GameConstants.SEQ_LENGTH; i++)
+        {
+            boardArray[row + i][column].inWinningSet = true;
+        }
 		return true;
 	}
 
@@ -180,6 +190,11 @@ public class Board {
 			}
 		}
 
+        //--mark winning set
+        for (int i = 0; i < GameConstants.SEQ_LENGTH; i++)
+        {
+            boardArray[row][column + i].inWinningSet = true;
+        }
 		return true;
 	}
 
@@ -201,6 +216,11 @@ public class Board {
 			}
 		}
 
+        //--mark winning set
+        for (int i = 0; i < GameConstants.SEQ_LENGTH; i++)
+        {
+            boardArray[row - i][column + i].inWinningSet = true;
+        }
 		return true;
 	}
 
@@ -222,6 +242,11 @@ public class Board {
 			}
 		}
 
+        //--mark winning set
+        for (int i = 0; i < GameConstants.SEQ_LENGTH; i++)
+        {
+            boardArray[row + i][column + i].inWinningSet = true;
+        }
 		return true;
 	}
 }

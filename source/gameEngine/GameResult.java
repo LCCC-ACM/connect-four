@@ -8,6 +8,7 @@ public class GameResult {
 	private Player winner;
 	private LinkedList<Move> moveList;
     private int currentMove = 0;
+    private Piece[][] board;
 
     public Move getNextMove()
     {
@@ -19,10 +20,11 @@ public class GameResult {
         return currentMove < moveList.size();
     }
 
-	protected GameResult(Player winner, LinkedList<Move> moveList)
+	protected GameResult(Player winner, LinkedList<Move> moveList, Piece[][] board)
 	{
 		this.winner = winner;
 		this.moveList = moveList;
+        this.board = board;
 	}
 
 	@Override

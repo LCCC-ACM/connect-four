@@ -10,7 +10,7 @@ import gameEngine.Move;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class GameViewer extends JFrame implements ActionListener {
+public class GameViewer extends JFrame {
 	final static int FRAME_WIDTH = 600;
 	final static int FRAME_HEIGHT = 500;
     final static int MOVES_PER_SECOND = 5;
@@ -56,10 +56,5 @@ public class GameViewer extends JFrame implements ActionListener {
         int column = move.column;
         boardPanel.updatePiece(row, column, move.getPlayerColor());
         count[move.column]++;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        makeNextMove();
     }
 }

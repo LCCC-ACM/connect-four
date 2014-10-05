@@ -1,10 +1,7 @@
 package ui;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.EventListener;
 
 import common.GameConstants;
 import gameEngine.GameResult;
@@ -16,6 +13,8 @@ import javax.swing.*;
 public class GameViewer extends JFrame implements ActionListener {
 	final static int FRAME_WIDTH = 600;
 	final static int FRAME_HEIGHT = 500;
+    final static int MOVES_PER_SECOND = 5;
+    final static int MILLISECONDS_PER_FRAME = 1000 / MOVES_PER_SECOND;
 	
 	private GameResult gameResult;
 	private BoardPanel boardPanel = new BoardPanel();
@@ -33,17 +32,25 @@ public class GameViewer extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 
-        timer = new javax.swing.Timer(100, this);
+        timer = new javax.swing.Timer(MILLISECONDS_PER_FRAME, new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                update();
+            }
+        });
         timer.start();
 	}
 
-    private void makeNextMove() {
-        if (!gameResult.hasMoveMoves())
+    private void update() {
+        if (!gameResult.hasMoreMoves())
         {
-            timer.stop();
             return;
         }
 
+        makeNextMove();
+    }
+
+    private void makeNextMove() {
         Move move = gameResult.getNextMove();
         int row = GameConstants.NUM_ROWS - count[move.column] - 1;
         int column = move.column;

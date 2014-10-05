@@ -9,20 +9,14 @@ public class GameResult {
 	private LinkedList<Move> moveList;
     private int currentMove = 0;
 
-    public Move getFirstMove()
-    {
-        currentMove = 0;
-        return moveList.getFirst();
-    }
-
     public Move getNextMove()
     {
-        return moveList.get(++currentMove);
+        return moveList.get(currentMove++);
     }
 
-    public boolean hasMoveMoves()
+    public boolean hasMoreMoves()
     {
-        return currentMove < moveList.size() - 1;
+        return currentMove < moveList.size();
     }
 
 	protected GameResult(Player winner, LinkedList<Move> moveList)

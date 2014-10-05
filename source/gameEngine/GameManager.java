@@ -18,8 +18,8 @@ public class GameManager {
 	
 	private Player nextPlayer = player1; //--Player 1 goes first
 
-	private final Piece blackPiece = new Piece(ConnectFourColor.BLACK);
-	private final Piece redPiece = new Piece(ConnectFourColor.RED);
+	private final Piece blackPiece = new Piece(Color.BLACK);
+	private final Piece redPiece = new Piece(Color.RED);
 	
 	private Board board = Board.getInstance();
 	private LinkedList<Move> moveList = new LinkedList<Move>();
@@ -34,16 +34,16 @@ public class GameManager {
 		return singleton;
 	}
 
-	public ConnectFourColor getPlayerColor(Player player) throws UnknownPlayerException
+	public Color getPlayerColor(Player player) throws UnknownPlayerException
 	{
 		if (player == player1)
 		{
-			return ConnectFourColor.BLACK;
+			return Color.BLACK;
 		}
 
 		if (player == player2)
 		{
-			return ConnectFourColor.RED;
+			return Color.RED;
 		}
 
 		throw new UnknownPlayerException();

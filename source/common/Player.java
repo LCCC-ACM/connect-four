@@ -3,9 +3,9 @@ package common;
 import gameEngine.*;
 
 @SuppressWarnings("serial")
-public abstract class Player {
+public interface Player {
 	
-	public abstract String getName();
+	String getName();
 
-	public abstract Move getMove(Board board);
+	Move getMove(Board board);
 }

@@ -6,6 +6,6 @@ public class Main {
 	public static void main(String[] args) {
 		GameResult result = new ConnectFourGame().play();
         System.out.println(result);
-		new GameViewer(result).viewGame();
+		new GameViewer(result);
 	}
 }

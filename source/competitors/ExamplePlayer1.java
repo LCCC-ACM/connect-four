@@ -3,9 +3,9 @@ package competitors;
 import common.*;
 import gameEngine.*;
 
-public class ExamplePlayer1 extends Player {
+public class ExamplePlayer1 implements Player {
 
-	private ConnectFourColor myColor;
+	private Color myColor;
 
 	public String getName() {
 		return "Example player";
@@ -29,7 +29,7 @@ public class ExamplePlayer1 extends Player {
 		return (int)(Math.random() * GameConstants.NUM_COLUMNS);
 	}
 
-	private ConnectFourColor getMyColor() {
+	private Color getMyColor() {
 		try {
 			return GameManager.getInstance().getPlayerColor(this);
 		}

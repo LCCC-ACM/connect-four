@@ -61,6 +61,11 @@ public class Superbad implements Player {
         for (int i = 0; i < GameConstants.NUM_COLUMNS; i++)
         {
             int row = getEmptyRow(i);
+            if (row == -1)
+            {
+                continue;
+            }
+
             moveOptions.add(new MoveOptionBuilder().build(row, i, myBoard, myColor, theirColor));
         }
 
@@ -78,7 +83,7 @@ public class Superbad implements Player {
     private void updateBoardWith(Move myMove) {
         int row = getEmptyRow(myMove.column);
         myBoard[row][myMove.column] = myColor;
-        columnCount[row]++;
+        columnCount[myMove.column]++;
     }
 
     private void getLastMove(Board board) {
@@ -86,6 +91,12 @@ public class Superbad implements Player {
         for (int i = 0; i < GameConstants.NUM_COLUMNS; i++)
         {
             int emptyRow = getEmptyRow(i);
+            //--Don't check a column that is full
+            if (emptyRow == -1)
+            {
+                continue;
+            }
+
             Color pieceOnBoard = board.getPieceColor(emptyRow, i);
             //--If I don't have this piece, add it to my board
             if (pieceOnBoard != null
@@ -116,10 +127,20 @@ class MoveOption implements Comparable<MoveOption> {
         this.theirStreak = theirStreak;
     }
 
+    private int distanceFromCenter()
+    {
+        return Math.abs((GameConstants.NUM_COLUMNS - 1) / 2 - column);
+    }
+
     @Override
     public int compareTo(MoveOption o) {
         if (Math.max(this.myStreak, this.theirStreak) == Math.max(o.myStreak, o.theirStreak))
         {
+            if (o.myStreak == this.myStreak)
+            {
+                return this.distanceFromCenter() - o.distanceFromCenter();
+            }
+
             return o.myStreak - this.myStreak;
         }
 
@@ -136,12 +157,8 @@ class MoveOptionBuilder {
         int[][] direction = {{0, 1},
                             {1, 0},
                             {1, 1},
-                            {-1, 0},
-                            {-1, -1},
-                            {0, -1},
-                            {1, -1},
-                            {-1, 1}};
-        for (int i = 0; i < 8; i++)
+                            {1, -1}};
+        for (int i = 0; i < 4; i++)
         {
             int myStreak = findStreakInDirection(row, column, direction[i][0], direction[i][1], board, myColor);
             if (myStreak > myLongestStreak)
@@ -166,7 +183,6 @@ class MoveOptionBuilder {
         {
             int dRowi = dRow * i;
             int dColi = dCol * i;
-//            System.out.printf("%d,%d\n", row + dRowi, col + dColi);
             if (row + dRowi < 0
                 || col + dColi < 0
                 || row + dRowi >= GameConstants.NUM_ROWS
@@ -174,7 +190,24 @@ class MoveOptionBuilder {
                 || board[row + dRowi][col + dColi] != color
                 || board[row + dRowi][col + dColi] == null)
             {
-                return streak;
+                break;
+            }
+
+            streak++;
+        }
+
+        for (int i = -1; i < -GameConstants.SEQ_LENGTH + 1; i--)
+        {
+            int dRowi = dRow * i;
+            int dColi = dCol * i;
+            if (row + dRowi < 0
+                    || col + dColi < 0
+                    || row + dRowi >= GameConstants.NUM_ROWS
+                    || col + dColi >= GameConstants.NUM_COLUMNS
+                    || board[row + dRowi][col + dColi] != color
+                    || board[row + dRowi][col + dColi] == null)
+            {
+                break;
             }
 
             streak++;

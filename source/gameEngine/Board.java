@@ -173,7 +173,7 @@ public class Board {
         //--mark winning set
         for (int i = 0; i < GameConstants.SEQ_LENGTH; i++)
         {
-            boardArray[row + i][column].inWinningSet = true;
+            boardArray[row + i][column].setInWinningSet(true);
         }
 		return true;
 	}
@@ -198,7 +198,7 @@ public class Board {
         //--mark winning set
         for (int i = 0; i < GameConstants.SEQ_LENGTH; i++)
         {
-            boardArray[row][column + i].inWinningSet = true;
+            boardArray[row][column + i].setInWinningSet(true);
         }
 		return true;
 	}
@@ -224,7 +224,7 @@ public class Board {
         //--mark winning set
         for (int i = 0; i < GameConstants.SEQ_LENGTH; i++)
         {
-            boardArray[row - i][column + i].inWinningSet = true;
+            boardArray[row - i][column + i].setInWinningSet(true);
         }
 		return true;
 	}
@@ -250,7 +250,7 @@ public class Board {
         //--mark winning set
         for (int i = 0; i < GameConstants.SEQ_LENGTH; i++)
         {
-            boardArray[row + i][column + i].inWinningSet = true;
+            boardArray[row + i][column + i].setInWinningSet(true);
         }
 		return true;
 	}

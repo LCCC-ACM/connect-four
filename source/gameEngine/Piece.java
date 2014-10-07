@@ -9,7 +9,7 @@ public class Piece {
     private Color color;
 
     private int movePlayed;
-    protected boolean inWinningSet;
+    private boolean inWinningSet;
 
     protected Piece(int row, int column, Color color, int movePlayed)
     {
@@ -42,5 +42,12 @@ public class Piece {
         {
             return Color.BLACK;
         }
+    }
+
+    public int getRow() { return row; }
+    public int getColumn() {return column; }
+    public boolean isInWinningSet() { return inWinningSet; }
+    public void setInWinningSet(boolean inWinningSet) {
+        this.inWinningSet = inWinningSet;
     }
 }

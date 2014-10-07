@@ -112,7 +112,7 @@ public class Board {
 		throw new InvalidMoveException();
 	}
 
-	protected boolean connectFour()
+	protected Direction connectFour()
 	{
 		for (int i = 0; i < GameConstants.NUM_ROWS; i++)
 		{
@@ -123,17 +123,22 @@ public class Board {
 					continue;
 				}
 
-				if (vertical(i, j)
-					|| horizontal(i, j)
-					|| diagonalUp(i, j)
-					|| diagonalDown(i, j))
-				{
-					return true;
+				if (vertical(i, j)) {
+                    return Direction.VERTICAL;
+                }
+                if (horizontal(i, j)) {
+                    return Direction.HORIZONTAL;
+                }
+                if (diagonalUp(i, j)) {
+                    return Direction.DIAGONAL_UP;
+                }
+                if (diagonalDown(i, j)) {
+					return Direction.DIAGONAL_DOWN;
 				}
 			}
 		}
 
-		return false;
+		return null;
 	}
 
 	protected boolean isFull()

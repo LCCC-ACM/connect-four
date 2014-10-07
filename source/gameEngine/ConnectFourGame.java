@@ -32,9 +32,11 @@ public class ConnectFourGame {
 				System.out.println(player.getName() + " attempted an invalid move.");
 			}
 
-			if (board.connectFour())
+			if (board.connectFour() != null)
 			{
-				return new GameResult(player, gameManager.getMoveList(), board.getBoard());
+                GameResult gameResult = new GameResult(player, gameManager.getMoveList(), board.getBoard());
+                gameResult.setWinningDirection(board.connectFour());
+				return gameResult;
 			}
 
 			if (board.isFull())

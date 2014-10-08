@@ -13,8 +13,8 @@ public class GameManager {
 
 	}
 
-	private final Player player1 = new ExamplePlayer1();
-	private final Player player2 = new ExamplePlayer1();
+	private final Player player1 = new MikesPlayer();
+	private final Player player2 = new MikesPlayer();
 	
 	private Player nextPlayer = player1; //--Player 1 goes first
 	

@@ -11,9 +11,7 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class GameViewer extends JFrame {
-	final static int FRAME_WIDTH = 600;
-	final static int FRAME_HEIGHT = 500;
-    final static int MOVES_PER_SECOND = 5;
+    final static int MOVES_PER_SECOND = 1;
     final static int MILLISECONDS_PER_FRAME = 1000 / MOVES_PER_SECOND;
 	
 	private GameResult gameResult;
@@ -28,7 +26,7 @@ public class GameViewer extends JFrame {
 		add(boardPanel);
         boardPanel.setGameResult(this.gameResult);
 		this.setTitle("Connect Four");
-		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		this.setSize(UIConstants.FRAME_WIDTH, UIConstants.FRAME_HEIGHT);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);

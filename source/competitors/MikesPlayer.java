@@ -131,54 +131,130 @@ public class MikesPlayer implements Player
         }
 
         //DiagonalUp
-        //TODO Finish this and make it awesome
-        for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+        for (int i = 0; i < GameConstants.NUM_COLUMNS; i++)
         {
-            int numberOfMyColor = 0;
-            try
+            if (board.getPiecesInColumn(i) == GameConstants.NUM_COLUMNS)
             {
-                if (board.getPieceColor(i, i) != null && board.getPieceColor(i, i).equals(this.color))
-                {
-                    numberOfMyColor++;
-                    if (numberOfMyColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
-                    {
-                        return i+1;
-                    }
-                } else
-                {
-                    numberOfMyColor = 0;
-                }
-            } catch (ArrayIndexOutOfBoundsException e)
-            {
-                //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
-                numberOfMyColor = 0;
+                //-- It's impossible to place a piece here. Go to the next column.
                 continue;
+            }
+            for (int j = 0; j < GameConstants.NUM_ROWS; j++)
+            {
+                int numberOfMyColor = 0;
+                if (board.getPieceColor(j, i) == null)
+                {
+                    int largestLength = (GameConstants.NUM_COLUMNS > GameConstants.NUM_ROWS)
+                            ? GameConstants.NUM_COLUMNS
+                            : GameConstants.NUM_ROWS;
+                    boolean moveLeft = true;
+                    for (int k = 0; k < largestLength && moveLeft; k++)
+                    {
+                        //-- Start to the down to the left and then go down and to the left
+                        try
+                        {
+                            if (board.getPieceColor(j-k, i-k) != null && board.getPieceColor(j-k, i-k).equals(this.color))
+                            {
+                                numberOfMyColor++;
+                                if (numberOfMyColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                                {
+                                    return i;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                            moveLeft = false;
+                        }
+                    }
+
+                    boolean moveRight = true;
+                    for (int k = 0; k < largestLength && moveRight; k++)
+                    {
+                        //-- Move up and to the right
+                        try
+                        {
+                            if (board.getPieceColor(j+k, i+k) != null && !board.getPieceColor(j+k, i+k).equals(this.color))
+                            {
+                                numberOfMyColor++;
+                                if (numberOfMyColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                                {
+                                    return i;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                            moveRight = false;
+                        }
+
+                    }
+
+                }
+                //-- continue on; the spot is already taken
             }
         }
 
         //DiagonalDown
-        //TODO Finish this and make it awesome
-        for (int i = GameConstants.NUM_ROWS-1; i > 0; i--)
+        for (int i = 0; i < GameConstants.NUM_COLUMNS; i++)
         {
-            int numberOfMyColor = 0;
-            try
+            if (board.getPiecesInColumn(i) == GameConstants.NUM_COLUMNS)
             {
-                if (board.getPieceColor(i, i) != null && board.getPieceColor(i, i).equals(this.color))
-                {
-                    numberOfMyColor++;
-                    if (numberOfMyColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
-                    {
-                        return i+1;
-                    }
-                } else
-                {
-                    numberOfMyColor = 0;
-                }
-            } catch (ArrayIndexOutOfBoundsException e)
-            {
-                //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
-                numberOfMyColor = 0;
+                //-- It's impossible to place a piece here. Go to the next column.
                 continue;
+            }
+            for (int j = 0; j < GameConstants.NUM_ROWS; j++)
+            {
+                int numberOfTheirColor = 0;
+                if (board.getPieceColor(j, i) == null)
+                {
+                    int largestLength = (GameConstants.NUM_COLUMNS > GameConstants.NUM_ROWS)
+                            ? GameConstants.NUM_COLUMNS
+                            : GameConstants.NUM_ROWS;
+                    boolean moveLeft = true;
+                    for (int k = 0; k < largestLength && moveLeft; k++)
+                    {
+                        //-- Start to the down to the left and then go up and to the left
+                        try
+                        {
+                            if (board.getPieceColor(j+k, i-k) != null && !board.getPieceColor(j+k, i-k).equals(this.color))
+                            {
+                                numberOfTheirColor++;
+                                if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                                {
+                                    return i;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                            moveLeft = false;
+                        }
+                    }
+
+                    boolean moveRight = true;
+                    for (int k = 0; k < largestLength && moveRight; k++)
+                    {
+                        //-- Move down and to the right
+                        try
+                        {
+                            if (board.getPieceColor(j-k, i+k) != null && !board.getPieceColor(j-k, i+k).equals(this.color))
+                            {
+                                numberOfTheirColor++;
+                                if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                                {
+                                    return i;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                            moveRight = false;
+                        }
+
+                    }
+
+                }
+                //-- continue on; the spot is already taken
             }
         }
 
@@ -272,54 +348,130 @@ public class MikesPlayer implements Player
         }
 
         //DiagonalUp
-        //TODO Finish this and make it awesome
-        for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+        for (int i = 0; i < GameConstants.NUM_COLUMNS; i++)
         {
-            int numberOfTheirColor = 0;
-            try
+            if (board.getPiecesInColumn(i) == GameConstants.NUM_COLUMNS)
             {
-                if (board.getPieceColor(i, i) != null && !board.getPieceColor(i, i).equals(this.color))
-                {
-                    numberOfTheirColor++;
-                    if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
-                    {
-                        return i+1;
-                    }
-                } else
-                {
-                    numberOfTheirColor = 0;
-                }
-            } catch (ArrayIndexOutOfBoundsException e)
-            {
-                //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
-                numberOfTheirColor = 0;
+                //-- It's impossible to place a piece here. Go to the next column.
                 continue;
+            }
+            for (int j = 0; j < GameConstants.NUM_ROWS; j++)
+            {
+                int numberOfTheirColor = 0;
+                if (board.getPieceColor(j, i) == null)
+                {
+                    int largestLength = (GameConstants.NUM_COLUMNS > GameConstants.NUM_ROWS)
+                            ? GameConstants.NUM_COLUMNS
+                            : GameConstants.NUM_ROWS;
+                    boolean moveLeft = true;
+                    for (int k = 0; k < largestLength && moveLeft; k++)
+                    {
+                        //-- Start to the down to the left and then go down and to the left
+                        try
+                        {
+                            if (board.getPieceColor(j-k, i-k) != null && !board.getPieceColor(j-k, i-k).equals(this.color))
+                            {
+                                numberOfTheirColor++;
+                                if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                                {
+                                    return i;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                            moveLeft = false;
+                        }
+                    }
+
+                    boolean moveRight = true;
+                    for (int k = 0; k < largestLength && moveRight; k++)
+                    {
+                        //-- Move up and to the right
+                        try
+                        {
+                            if (board.getPieceColor(j+k, i+k) != null && !board.getPieceColor(j+k, i+k).equals(this.color))
+                            {
+                                numberOfTheirColor++;
+                                if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                                {
+                                    return i;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                            moveRight = false;
+                        }
+
+                    }
+
+                }
+                //-- continue on; the spot is already taken
             }
         }
 
         //DiagonalDown
-        //TODO Finish this and make it awesome
-        for (int i = GameConstants.NUM_ROWS-1; i > 0; i--)
+        for (int i = 0; i < GameConstants.NUM_COLUMNS; i++)
         {
-            int numberOfTheirColor = 0;
-            try
+            if (board.getPiecesInColumn(i) == GameConstants.NUM_COLUMNS)
             {
-                if (board.getPieceColor(i, i) != null && !board.getPieceColor(i, i).equals(this.color))
-                {
-                    numberOfTheirColor++;
-                    if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
-                    {
-                        return i+1;
-                    }
-                } else
-                {
-                    numberOfTheirColor = 0;
-                }
-            } catch (ArrayIndexOutOfBoundsException e)
-            {
-                //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
-                numberOfTheirColor = 0;
+                //-- It's impossible to place a piece here. Go to the next column.
                 continue;
+            }
+            for (int j = 0; j < GameConstants.NUM_ROWS; j++)
+            {
+                int numberOfTheirColor = 0;
+                if (board.getPieceColor(j, i) == null)
+                {
+                    int largestLength = (GameConstants.NUM_COLUMNS > GameConstants.NUM_ROWS)
+                            ? GameConstants.NUM_COLUMNS
+                            : GameConstants.NUM_ROWS;
+                    boolean moveLeft = true;
+                    for (int k = 0; k < largestLength && moveLeft; k++)
+                    {
+                        //-- Start to the down to the left and then go up and to the left
+                        try
+                        {
+                            if (board.getPieceColor(j+k, i-k) != null && !board.getPieceColor(j+k, i-k).equals(this.color))
+                            {
+                                numberOfTheirColor++;
+                                if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                                {
+                                    return i;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                            moveLeft = false;
+                        }
+                    }
+
+                    boolean moveRight = true;
+                    for (int k = 0; k < largestLength && moveRight; k++)
+                    {
+                        //-- Move down and to the right
+                        try
+                        {
+                            if (board.getPieceColor(j-k, i+k) != null && !board.getPieceColor(j-k, i+k).equals(this.color))
+                            {
+                                numberOfTheirColor++;
+                                if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                                {
+                                    return i;
+                                }
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                            moveRight = false;
+                        }
+
+                    }
+
+                }
+                //-- continue on; the spot is already taken
             }
         }
 

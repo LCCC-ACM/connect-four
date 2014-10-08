@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class BoardPanel extends JPanel {
 
     private Color[][] piece = new Color[GameConstants.NUM_ROWS][GameConstants.NUM_COLUMNS];
-    private final int gridHeight = (UIConstants.FRAME_HEIGHT - 30) / GameConstants.NUM_ROWS;
+    private final int gridHeight = Double.valueOf(((double)UIConstants.FRAME_HEIGHT * 0.94) / GameConstants.NUM_ROWS).intValue();
     private final int gridWidth = UIConstants.FRAME_WIDTH / GameConstants.NUM_COLUMNS;
     private final int pieceSize = Math.min(gridHeight, gridWidth);
     private GameResult gameResult;

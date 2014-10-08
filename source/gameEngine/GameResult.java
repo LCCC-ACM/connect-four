@@ -9,7 +9,6 @@ public class GameResult {
 	private LinkedList<Move> moveList;
     private int currentMove = 0;
     private Piece[][] board;
-    private Direction winningDirection;
 
     public Move getNextMove()
     {
@@ -23,20 +22,14 @@ public class GameResult {
 
     public Piece[][] getBoard() { return board; }
 
+    public Player getWinner() { return winner; }
+
 	protected GameResult(Player winner, LinkedList<Move> moveList, Piece[][] board)
 	{
 		this.winner = winner;
 		this.moveList = moveList;
         this.board = board;
 	}
-
-    public void setWinningDirection(Direction direction) {
-        this.winningDirection = direction;
-    }
-
-    public Direction getWinningDirection() {
-        return this.winningDirection;
-    }
 
 	@Override
 	public String toString()

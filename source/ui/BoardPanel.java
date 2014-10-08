@@ -1,12 +1,12 @@
 package ui;
 
 import java.awt.*;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
 import common.*;
 import common.Color;
-import gameEngine.Direction;
 import gameEngine.GameResult;
 import gameEngine.Piece;
 
@@ -27,7 +27,7 @@ public class BoardPanel extends JPanel {
         this.repaint();
     }
 
-    protected void drawConnectFour(GameResult gameResult)
+    protected void setGameResult(GameResult gameResult)
     {
         this.gameResult = gameResult;
     }
@@ -56,41 +56,27 @@ public class BoardPanel extends JPanel {
             }
         }
 
-        if (gameResult != null)
+        if (gameResult != null && gameResult.getWinner() != null && !gameResult.hasMoreMoves())
         {
             //-- Draw the victory line
             //-- find each winning piece
             List<Piece> winningPieces = new ArrayList<Piece>();
             for (int i = 0; i < GameConstants.NUM_COLUMNS; i++) {
                 for (int j = 0; j < GameConstants.NUM_ROWS; j++) {
-                    if (gameResult.getBoard()[j][i].isInWinningSet()) {
+                    if (gameResult.getBoard()[j][i] != null && gameResult.getBoard()[j][i].isInWinningSet()) {
                         winningPieces.add(gameResult.getBoard()[j][i]);
                     }
                 }
             }
 
-            if (gameResult.getWinningDirection() == Direction.HORIZONTAL) {
-                int row = winningPieces.get(0).getRow();
-                int minColumn = Integer.MAX_VALUE;
-                int maxColumn = Integer.MIN_VALUE;
-                for (Piece winningPiece : winningPieces) {
-                    minColumn = winningPiece.getColumn() < minColumn ? winningPiece.getColumn() : minColumn;
-                    maxColumn = winningPiece.getColumn() > maxColumn ? winningPiece.getColumn() : maxColumn;
-                }
-                System.err.println("row: " + row + ", minColumn: " + minColumn + ", maxColumn: " + maxColumn);
-            } else if (gameResult.getWinningDirection() == Direction.VERTICAL) {
-                int column = winningPieces.get(0).getColumn();
-                int minRow = Integer.MAX_VALUE;
-                int maxRow = Integer.MIN_VALUE;
-                for (Piece winningPiece : winningPieces) {
-                    minRow = winningPiece.getRow() < minRow ? winningPiece.getRow() : minRow;
-                    maxRow = winningPiece.getRow() > maxRow ? winningPiece.getRow() : maxRow;
-                }
-                System.err.println("column: " + column + ", minRow: " + minRow + ", maxRow: " + maxRow);
-            } else if (gameResult.getWinningDirection() == Direction.DIAGONAL_DOWN) {
-                //-- Get the smallest [X,Y] pair and go up and left
-            } else {
-                //-- Must be DIAGONAL_UP. Get the largest [X] and smallest [Y] and go down and right
+            for (int i = 0; i < winningPieces.size()-1; i++) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setStroke(new BasicStroke(3));
+                g2.setColor(java.awt.Color.YELLOW);
+                g2.drawLine((winningPieces.get(i).getColumn() * gridWidth) + (pieceSize/2),
+                        (winningPieces.get(i).getRow() * gridHeight)+ (pieceSize/2),
+                        (winningPieces.get(i+1).getColumn() * gridWidth)+ (pieceSize/2),
+                        (winningPieces.get(i+1).getRow() * gridHeight)+ (pieceSize/2));
             }
         }
     }

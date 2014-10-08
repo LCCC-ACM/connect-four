@@ -3,6 +3,7 @@ package gameEngine;
 import java.util.*;
 
 import common.*;
+import ui.BoardPanel;
 
 @SuppressWarnings("serial")
 public class ConnectFourGame {
@@ -32,10 +33,9 @@ public class ConnectFourGame {
 				System.out.println(player.getName() + " attempted an invalid move.");
 			}
 
-			if (board.connectFour() != null)
+			if (board.connectFour())
 			{
                 GameResult gameResult = new GameResult(player, gameManager.getMoveList(), board.getBoard());
-                gameResult.setWinningDirection(board.connectFour());
 				return gameResult;
 			}
 

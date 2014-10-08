@@ -40,7 +40,7 @@ public class Superbad implements Player {
             }
             else
             {
-                theirColor = Color.BLACK;
+                theirColor = Color.RED;
             }
         }
 
@@ -118,13 +118,43 @@ public class Superbad implements Player {
 class MoveOption implements Comparable<MoveOption> {
     int column;
     int myStreak;
+    boolean iCanWin; //--Are there obstacles (end of board, opposing pieces) that would
+                     //-prevent me from making a winning sequence on that winning streak.
     int theirStreak;
+    boolean theyCanWin;
 
-    public MoveOption(int column, int myStreak, int theirStreak)
+    public MoveOption(int column, int myStreak, boolean iCanWin, int theirStreak, boolean theyCanWin)
     {
         this.column = column;
-        this.myStreak = myStreak;
-        this.theirStreak = theirStreak;
+        //--Once a streak is long enough to force a win,
+        //-a longer streak is not any better. I am putting
+        //-a limit on the streak length here to make the sorting
+        //-logic easier to understand
+        this.myStreak = Math.min(myStreak, GameConstants.SEQ_LENGTH - 1);
+        this.iCanWin = iCanWin;
+
+        this.theirStreak = Math.min(theirStreak, GameConstants.SEQ_LENGTH - 1);
+        this.theyCanWin = theyCanWin;
+    }
+
+    private int getTheirBestStreak()
+    {
+        if (!theyCanWin)
+        {
+            return 0;
+        }
+
+        return theirStreak;
+    }
+
+    private int getMyBestStreak()
+    {
+        if (!iCanWin)
+        {
+            return 0;
+        }
+
+        return myStreak;
     }
 
     private int distanceFromCenter()
@@ -134,17 +164,22 @@ class MoveOption implements Comparable<MoveOption> {
 
     @Override
     public int compareTo(MoveOption o) {
-        if (Math.max(this.myStreak, this.theirStreak) == Math.max(o.myStreak, o.theirStreak))
+        //--Order moves my the max streak length, then by
+        //-my streak length, then by the distance of the move
+        //-from the center (where closer to the center is better)
+        if (Math.max(this.getMyBestStreak(), this.getTheirBestStreak())
+                == Math.max(o.getMyBestStreak(), o.getTheirBestStreak()))
         {
-            if (o.myStreak == this.myStreak)
+            if (o.getMyBestStreak() == this.getMyBestStreak())
             {
                 return this.distanceFromCenter() - o.distanceFromCenter();
             }
 
-            return o.myStreak - this.myStreak;
+            return o.getMyBestStreak() - this.getMyBestStreak();
         }
 
-        return Math.max(o.myStreak, o.theirStreak) - Math.max(this.myStreak, this.theirStreak);
+        return Math.max(o.getMyBestStreak(), o.getTheirBestStreak())
+                - Math.max(this.getMyBestStreak(), this.getTheirBestStreak());
     }
 }
 
@@ -153,6 +188,9 @@ class MoveOptionBuilder {
     {
         int myLongestStreak = 0;
         int theirLongestStreak = 0;
+
+        boolean iCanWin = false;
+        boolean theyCanWin = false;
 
         int[][] direction = {{0, 1},
                             {1, 0},
@@ -164,22 +202,69 @@ class MoveOptionBuilder {
             if (myStreak > myLongestStreak)
             {
                 myLongestStreak = myStreak;
+                iCanWin = directionSupportsWinningStreak(row, column, direction[i][0], direction[i][1], board, myColor);
             }
 
             int theirStreak = findStreakInDirection(row, column, direction[i][0], direction[i][1], board, theirColor);
             if (theirStreak > theirLongestStreak)
             {
                 theirLongestStreak = theirStreak;
+                theyCanWin = directionSupportsWinningStreak(row, column, direction[i][0], direction[i][1], board, theirColor);
             }
         }
 
-        return new MoveOption(column, myLongestStreak, theirLongestStreak);
+        return new MoveOption(column, myLongestStreak, iCanWin, theirLongestStreak, theyCanWin);
+    }
+
+    private boolean directionSupportsWinningStreak(int row, int col, int dRow, int dCol, Color[][] board, Color color)
+    {
+        int possibleLength = 1; //this square
+
+        for (int i = 1; i < GameConstants.SEQ_LENGTH; i++)
+        {
+            int dRowi = dRow * i;
+            int dColi = dCol * i;
+            if (row + dRowi < 0
+                    || col + dColi < 0
+                    || row + dRowi >= GameConstants.NUM_ROWS
+                    || col + dColi >= GameConstants.NUM_COLUMNS)
+            {
+                break;
+            }
+
+            if (board[row + dRowi][col + dColi] == color
+                    || board[row + dRowi][col + dColi] == null)
+            {
+                possibleLength++;
+            }
+        }
+
+        for (int i = -1; i > -GameConstants.SEQ_LENGTH; i--)
+        {
+            int dRowi = dRow * i;
+            int dColi = dCol * i;
+            if (row + dRowi < 0
+                    || col + dColi < 0
+                    || row + dRowi >= GameConstants.NUM_ROWS
+                    || col + dColi >= GameConstants.NUM_COLUMNS)
+            {
+                break;
+            }
+
+            if (board[row + dRowi][col + dColi] == color
+                    || board[row + dRowi][col + dColi] == null)
+            {
+                possibleLength++;
+            }
+        }
+
+        return possibleLength >= GameConstants.SEQ_LENGTH;
     }
 
     private int findStreakInDirection(int row, int col, int dRow, int dCol, Color[][] board, Color color)
     {
         int streak = 0;
-        for (int i = 1; i < GameConstants.SEQ_LENGTH - 1; i++)
+        for (int i = 1; i < GameConstants.SEQ_LENGTH; i++)
         {
             int dRowi = dRow * i;
             int dColi = dCol * i;
@@ -196,7 +281,7 @@ class MoveOptionBuilder {
             streak++;
         }
 
-        for (int i = -1; i < -GameConstants.SEQ_LENGTH + 1; i--)
+        for (int i = -1; i > -GameConstants.SEQ_LENGTH; i--)
         {
             int dRowi = dRow * i;
             int dColi = dCol * i;

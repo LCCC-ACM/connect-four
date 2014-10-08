@@ -14,7 +14,7 @@ public class GameManager {
 	}
 
 	private final Player player1 = new ExamplePlayer1();
-	private final Player player2 = new ExamplePlayer1();
+	private final Player player2 = new Superbad();
 	
 	private Player nextPlayer = player1; //--Player 1 goes first
 	

@@ -35,7 +35,17 @@ public class MikesPlayer implements Player
         }
 
         //3. I'm not really that good for now, so just choose a column.
-        return new Move(0);
+        int column = getRandomColumn();
+        while (!board.canPlay(column))
+        {
+            column = getRandomColumn();
+        }
+
+        return new Move(column);
+    }
+
+    private int getRandomColumn() {
+        return (int)(Math.random() * GameConstants.NUM_COLUMNS);
     }
 
     private Integer getColumnForWin(Board board)
@@ -47,7 +57,7 @@ public class MikesPlayer implements Player
         {
             for (int j = 0; j < board.getPiecesInColumn(i); j++)
             {
-                if (board.getPieceColor(j, i).equals(this.color))
+                if (board.getPieceColor(j, i) != null && board.getPieceColor(j, i).equals(this.color))
                 {
                     numberOfMyColor++;
                     if (numberOfMyColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
@@ -67,7 +77,7 @@ public class MikesPlayer implements Player
                 if (board.getPieceColor(i, j) != null && board.getPieceColor(i ,j).equals(this.color))
                 {
                     numberOfMyColor++;
-                    if (numberOfMyColor == GameConstants.SEQ_LENGTH-1)
+                    if (numberOfMyColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
                     {
                         return j+1;
                     }
@@ -79,12 +89,148 @@ public class MikesPlayer implements Player
         }
 
         //DiagonalUp
+        numberOfMyColor = 0;
+        for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+        {
+            try
+            {
+                if (board.getPieceColor(i, i) != null && board.getPieceColor(i, i).equals(this.color))
+                {
+                    numberOfMyColor++;
+                    if (numberOfMyColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                    {
+                        return i+1;
+                    }
+                } else
+                {
+                    numberOfMyColor = 0;
+                }
+            } catch (ArrayIndexOutOfBoundsException e)
+            {
+                //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                numberOfMyColor = 0;
+                continue;
+            }
+        }
+
+        //DiagonalDown
+        numberOfMyColor = 0;
+        for (int i = GameConstants.NUM_ROWS-1; i > 0; i--)
+        {
+            try
+            {
+                if (board.getPieceColor(i, i) != null && board.getPieceColor(i, i).equals(this.color))
+                {
+                    numberOfMyColor++;
+                    if (numberOfMyColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                    {
+                        return i+1;
+                    }
+                } else
+                {
+                    numberOfMyColor = 0;
+                }
+            } catch (ArrayIndexOutOfBoundsException e)
+            {
+                //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                numberOfMyColor = 0;
+                continue;
+            }
+        }
 
         return null;
     }
 
     private Integer getColumnForBlock(Board board)
     {
+        int numberOfTheirColor = 0;
+
+        //Vertical
+        for (int i = 0; i < GameConstants.NUM_COLUMNS; i++)
+        {
+            for (int j = 0; j < board.getPiecesInColumn(i); j++)
+            {
+                if (board.getPieceColor(j, i) != null && !board.getPieceColor(j, i).equals(this.color))
+                {
+                    numberOfTheirColor++;
+                    if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                    {
+                        return i;
+                    }
+                }
+            }
+        }
+
+        //Horizontal
+        numberOfTheirColor = 0;
+        for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+        {
+            for (int j = 0; j < GameConstants.NUM_COLUMNS; j++)
+            {
+                if (board.getPieceColor(i, j) != null && !board.getPieceColor(i ,j).equals(this.color))
+                {
+                    numberOfTheirColor++;
+                    if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                    {
+                        return j+1;
+                    }
+                } else
+                {
+                    numberOfTheirColor = 0;
+                }
+            }
+        }
+
+        //DiagonalUp
+        numberOfTheirColor = 0;
+        for (int i = 0; i < GameConstants.NUM_ROWS; i++)
+        {
+            try
+            {
+                if (board.getPieceColor(i, i) != null && !board.getPieceColor(i, i).equals(this.color))
+                {
+                    numberOfTheirColor++;
+                    if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                    {
+                        return i+1;
+                    }
+                } else
+                {
+                    numberOfTheirColor = 0;
+                }
+            } catch (ArrayIndexOutOfBoundsException e)
+            {
+                //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                numberOfTheirColor = 0;
+                continue;
+            }
+        }
+
+        //DiagonalDown
+        numberOfTheirColor = 0;
+        for (int i = GameConstants.NUM_ROWS-1; i > 0; i--)
+        {
+            try
+            {
+                if (board.getPieceColor(i, i) != null && !board.getPieceColor(i, i).equals(this.color))
+                {
+                    numberOfTheirColor++;
+                    if (numberOfTheirColor == GameConstants.SEQ_LENGTH-1 && board.canPlay(i))
+                    {
+                        return i+1;
+                    }
+                } else
+                {
+                    numberOfTheirColor = 0;
+                }
+            } catch (ArrayIndexOutOfBoundsException e)
+            {
+                //-- This is really bad practice, but this is also a hacky way of realizing we've hit the end of the board with out doing crazy checks.
+                numberOfTheirColor = 0;
+                continue;
+            }
+        }
+
         return null;
     }
 }

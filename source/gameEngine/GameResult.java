@@ -20,6 +20,10 @@ public class GameResult {
         return currentMove < moveList.size();
     }
 
+    public Piece[][] getBoard() { return board; }
+
+    public Player getWinner() { return winner; }
+
 	protected GameResult(Player winner, LinkedList<Move> moveList, Piece[][] board)
 	{
 		this.winner = winner;

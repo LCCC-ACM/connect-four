@@ -3,6 +3,7 @@ package gameEngine;
 import java.util.*;
 
 import common.*;
+import ui.BoardPanel;
 
 @SuppressWarnings("serial")
 public class ConnectFourGame {
@@ -34,7 +35,8 @@ public class ConnectFourGame {
 
 			if (board.connectFour())
 			{
-				return new GameResult(player, gameManager.getMoveList(), board.getBoard());
+                GameResult gameResult = new GameResult(player, gameManager.getMoveList(), board.getBoard());
+				return gameResult;
 			}
 
 			if (board.isFull())

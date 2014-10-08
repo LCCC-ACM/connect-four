@@ -26,6 +26,7 @@ public class GameViewer extends JFrame {
 	{
 		this.gameResult = result;
 		add(boardPanel);
+        boardPanel.setGameResult(this.gameResult);
 		this.setTitle("Connect Four");
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.setLocationRelativeTo(null);

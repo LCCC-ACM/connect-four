@@ -69,15 +69,42 @@ public class Superbad implements Player {
             moveOptions.add(new MoveOptionBuilder().build(row, i, myBoard, myColor, theirColor));
         }
 
-        int bestMove = moveOptions.poll().column;
+        MoveOption bestMove = moveOptions.poll();
 
-        //--If I have time I will implement a check so that I avoid a move that
-        //-would allow my opponent to win on the very next turn.
+        while (!moveOptions.isEmpty())
+        {
+            if (thisMoveShouldBeAvoided(bestMove.column))
+            {
+                bestMove = moveOptions.poll();
+            }
+            else
+            {
+                break;
+            }
+        }
 
-        Move myMove = new Move(bestMove);
+        Move myMove = new Move(bestMove.column);
         updateBoardWith(myMove);
 
-        return new Move(bestMove);
+        return new Move(bestMove.column);
+    }
+
+    private boolean thisMoveShouldBeAvoided(int column)
+    {
+        //--This move should be avoided if after we play here it allows
+        //-the enemy to make a winning move
+        int futureMoveRow = getEmptyRow(column) - 1;
+        if (futureMoveRow < 0)
+            return false;
+
+        int theirStreak = new MoveOptionBuilder()
+                .build(futureMoveRow, column, myBoard, myColor, theirColor)
+                .theirStreak;
+
+        if (theirStreak >= GameConstants.SEQ_LENGTH - 1)
+            return true;
+
+        return false;
     }
 
     private void updateBoardWith(Move myMove) {
